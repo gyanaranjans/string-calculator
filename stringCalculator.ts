@@ -16,7 +16,10 @@ export function add(numbers: string): number {
         numbers = numbers.substring(delimiterEndIndex + 1);
     }
 
-    const numArray = numbers.split(delimiter).map(Number);
+    const numArray = numbers.split(delimiter).map(num => {
+        const parsedNum = Number(num);
+        return isNaN(parsedNum) ? 0 : parsedNum;
+    });
     const negativeNumbers = numArray.filter(num => num < 0);
 
     if (negativeNumbers.length > 0) {
