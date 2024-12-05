@@ -6,15 +6,18 @@ export function add(numbers: string): number {
     let delimiter = /,|\n/;
 
 
+
     ({ numbers, delimiter } = extractAndReplaceDelimiter(numbers, delemitorReplace, delimiter));
 
     const numArray = numbers.split(delimiter).map(num => {
         const parsedNum = Number(num);
         return isNaN(parsedNum) ? 0 : parsedNum;
     });
-    NegativeNumberCheck(numArray);
+    const filteredArraylessThan1000 = numArray.filter(num => num <= 1000);
 
-    return numArray.reduce((sum, num) => sum + num, 0);
+    negativeNumberCheck(numArray);
+
+    return filteredArraylessThan1000.reduce((sum, num) => sum + num, 0);
 }
 
 
@@ -33,7 +36,7 @@ function extractAndReplaceDelimiter(numbers: string, delemitorReplace: (delimite
     return { numbers, delimiter };
 }
 
-function NegativeNumberCheck(numArray: number[]) {
+function negativeNumberCheck(numArray: number[]) {
     const negativeNumbers = numArray.filter(num => num < 0);
 
     if (negativeNumbers.length > 0) {

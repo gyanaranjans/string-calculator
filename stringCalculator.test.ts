@@ -51,7 +51,11 @@ test('should ignore non-numeric values', () => {
     expect(add("1\nb\n2")).toBe(3);
 });
 
-test('should handle large numbers', () => {
-    expect(add("1000,2000,3000")).toBe(6000);
-    expect(add("//;\n1000;2000;3000")).toBe(6000);
+
+
+test('should ignore numbers greater than 1000', () => {
+    expect(add("1001,2000,3000")).toBe(0);
+    expect(add("//;\n1001;2000;3000")).toBe(0);
+    expect(add('1,2,1001')).toBe(3);
 });
+
